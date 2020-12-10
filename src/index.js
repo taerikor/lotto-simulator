@@ -1,6 +1,8 @@
 const resultNumber = document.getElementsByClassName('js-resultNumber');
 const betNumber = document.getElementsByClassName('js-betNumber');
 const betButton = document.querySelector('.js-betBtn');
+const speedButton = document.querySelector('.js-speed');
+const resetButton = document.querySelector('.js-reset');
 const rank = document.getElementsByClassName('js-rank');
 const money = document.querySelector('.js-money');
 const inputBet = document.querySelector('.js-bet');
@@ -19,6 +21,7 @@ let first = 0;
 let lost = 0;
 let getMoney = 0;
 let betMoney = 0;
+let timeOutSpeed = 100;
 
 const reward = {
     first:1952160000,
@@ -87,8 +90,14 @@ function paintBonus(){
     resultNumber[6].innerText = getBonus[0]
 }
 
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 function piantRank() {
     const getRank = getResult.filter(f => getBet.includes(f))
+    const getMoneyCommas = numberWithCommas(getMoney);
+    getMoney += reward.lost
     if (getRank.length == 3) {
         fifth += 1
         getMoney += reward.fifth
@@ -106,17 +115,17 @@ function piantRank() {
     }else if ((getRank.length == 5) && (getBet.includes(getBonus[0]))) {
         second += 1
         getMoney += reward.second
-        rank[1].innerText = `5등 : ${second}`
+        rank[1].innerText = `2등 : ${second}`
     }else if (getRank.length == 6) {
         first += 1
         getMoney += reward.first
-        rank[0].innerText = `5등 : ${first}`
+        rank[0].innerText = `1등 : ${first}`
     }else {
         lost += 1
-        getMoney += reward.lost
-        rank[5].innerText = `꽝: ${lost}`
+        // getMoney += reward.lost
+        rank[5].innerText = `꽝 : ${lost}`
     }
-    money.innerText = `수익: ${getMoney}￦`
+    money.innerText = `수익: ${getMoneyCommas}￦`
 } 
 
 function getTimeout(){
@@ -125,7 +134,7 @@ function getTimeout(){
     paintBet();
     piantRank();
     if(betMoney < inputBet.value){
-        setTimeout(getTimeout,80);
+        setTimeout(getTimeout,timeOutSpeed);
     }else{
             betMoney = 0;
     inputBet.value = '';
@@ -134,13 +143,17 @@ function getTimeout(){
 
 
 function handleBetButtonClick(){
-    if(inputBet.value != ''){
-    paintResult();
-    paintBonus();
-    getTimeout();
-    errorText.innerText = '';
-}else {
-    errorText.innerText = '금액을 입력하세요!'
+    if(inputBet.value == ''){
+        errorText.innerText = '금액을 입력하세요!'
+        inputBet.value = '';
+    }else if(inputBet.value < 1){
+        errorText.innerText = '정확한 금액을 입력하세요!'
+        inputBet.value = '';
+    }else {
+        paintResult();
+        paintBonus();
+        getTimeout();
+        errorText.innerText = '';
 }
 }
 
@@ -148,6 +161,32 @@ function handleSubmit(event){
     event.preventDefault();
     handleBetButtonClick();
 }
+function handleResetButtonClick(){
+    window.location.reload("Refresh")
+}
+function handleSpeedButtonClick(){
+    if(timeOutSpeed == 100){
+        timeOutSpeed = 50;
+        speedButton.innerText = 'x4'
+    }else if(timeOutSpeed == 50){
+        timeOutSpeed = 25;
+        speedButton.innerText = 'x8'
+    }else if(timeOutSpeed == 25){
+        timeOutSpeed = 12.5;
+        speedButton.innerText = 'x16'
+    }else if(timeOutSpeed == 12.5){
+        timeOutSpeed = 6.25;
+        speedButton.innerText = 'x32'
+    }else if(timeOutSpeed == 6.25){
+        timeOutSpeed = 3.125;
+        speedButton.innerText = 'x1'
+    }else if(timeOutSpeed == 3.125){
+        timeOutSpeed = 100;
+        speedButton.innerText = 'x2'
+    }
+}
 
 betButton.addEventListener('click',handleBetButtonClick);
+speedButton.addEventListener('click',handleSpeedButtonClick);
+resetButton.addEventListener('click',handleResetButtonClick);
 form.addEventListener('submit',handleSubmit);

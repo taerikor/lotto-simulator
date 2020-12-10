@@ -47,6 +47,9 @@ button {
   border: 1px solid var(--border-light-color);
   box-shadow: var(--box-shadow-color);
 }
+.buttonbox {
+  display: inline;
+}
 .inputbox {
   margin: 10px;
   margin-bottom: 20px;
