@@ -1,2 +1,5 @@
 # Lotto-Simulator
-Vanilla JS practice
+
+Simulator with simple functions
+
+Expressing probability intuitively
