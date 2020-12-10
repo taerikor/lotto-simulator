@@ -117,22 +117,27 @@ function piantRank() {
         rank[5].innerText = `꽝: ${lost}`
     }
     money.innerText = `수익: ${getMoney}￦`
-    console.log(getRank)
 } 
+
+function getTimeout(){
+    getRandom();
+    betMoney += 1
+    paintBet();
+    piantRank();
+    if(betMoney < inputBet.value){
+        setTimeout(getTimeout,80);
+    }else{
+            betMoney = 0;
+    inputBet.value = '';
+    }
+}
 
 
 function handleBetButtonClick(){
     if(inputBet.value != ''){
     paintResult();
-    while(betMoney < inputBet.value){
-        getRandom();
-        betMoney += 1
-        paintBet();
-        paintBonus();
-        piantRank();
-    }
-    betMoney = 0;
-    inputBet.value = '';
+    paintBonus();
+    getTimeout();
     errorText.innerText = '';
 }else {
     errorText.innerText = '금액을 입력하세요!'
