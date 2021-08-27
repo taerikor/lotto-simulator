@@ -1,5 +1,5 @@
 # Lotto-Simulator
 
-Simulator with simple functions
+To learn Vanila JS in 2020
 
-Expressing probability intuitively
+Thank you for visiting.
