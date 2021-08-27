@@ -1,0 +1,143 @@
+:root {
+  /* color */
+  --dark-color: #ab000d;
+  --point-color: #e53835;
+  --background-color: #f6f9fc;
+  --box-shadow-color: 0 4px 6px rgba(50, 50, 93, 0.11),
+    0 1px 3px rgba(0, 0, 0, 0.08);
+  --border-light-color: rgba(0, 0, 0, 0.2);
+}
+
+body {
+  background-color: var(--background-color);
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+h1 {
+  text-align: center;
+  font-size: 120px;
+  padding: 10px;
+  background-color: var(--dark-color);
+  color: white;
+  margin: 10px;
+  border-radius: 6px;
+}
+h3 {
+  display: block;
+  padding: 10px;
+  background-color: var(--point-color);
+  margin-top: 0;
+}
+.error {
+  display: block;
+  font-size: 20px;
+  margin: 10px;
+  text-align: center;
+}
+input {
+  background-color: transparent;
+  border: 0px solid black;
+  border-bottom: 2px solid black;
+  font-size: 30px;
+  width: 300px;
+}
+
+button {
+  cursor: pointer;
+  font-size: 20px;
+  border: 1px solid var(--border-light-color);
+  border-radius: 50%;
+  box-shadow: var(--box-shadow-color);
+  height: 50px;
+  width: 50px;
+}
+.buttonbox {
+  margin-left: 40px;
+}
+.inputbox {
+  margin: 10px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.numberball,
+.serviceball {
+  height: 50px;
+  width: 50px;
+  line-height: 50px;
+  display: inline-block;
+  margin: 5px;
+  color: white;
+  background-color: var(--dark-color);
+  border: 1px solid var(--border-light-color);
+  border-radius: 50%;
+  text-align: center;
+  box-shadow: var(--box-shadow-color);
+}
+.serviceball {
+  background-color: var(--point-color);
+}
+.rewardbox,
+.winbox {
+  display: inline-flex;
+  flex-direction: column;
+}
+.winbox span,
+.reward {
+  margin: px;
+  margin-left: 10px;
+}
+.form {
+  display: inline;
+}
+.betnumberbox,
+.resultbox,
+.winbox,
+.rewardbox {
+  border: 1px solid var(--border-light-color);
+  border-radius: 5px;
+  margin: 10px;
+  padding: 0px;
+  background-color: white;
+  box-shadow: var(--box-shadow-color);
+}
+.money {
+  display: block;
+  text-align: center;
+  margin-top: 20px;
+  font-size: 30px;
+  font-weight: 800;
+}
+.winbox {
+  width: 50%;
+}
+.rewardbox {
+  width: 50%;
+}
+.moneyinfo {
+  display: flex;
+}
+
+@media screen and (max-width: 770px) {
+  h1 {
+    margin: 0;
+  }
+  body {
+    padding: 0;
+    margin: 0;
+  }
+  input {
+    width: 120px;
+  }
+  .bettext {
+    display: none;
+  }
+  .numberball,
+  .serviceball {
+    margin: 3px;
+  }
+}

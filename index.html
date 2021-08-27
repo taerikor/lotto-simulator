@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="src/style.css">
+    <title>LOTTO SIMULATOR</title>
+</head>
+<body>
+    <h1>LOTTO</h1>
+    <div class="inputbox">
+    <span class="bettext">배팅금액은</span>
+        <form class="js-form form">
+        <input type="number" class="js-bet">
+    </form>
+        <span>,000원</span>
+        <div class="buttonbox">
+        <button class="js-betBtn">BET</button>
+        <button class="js-speed">x2</button>
+        <button class="js-reset">↻</button>
+        </div>
+    </div>
+    <span class="js-error error"></span>
+    <div class="js-betnumberbox betnumberbox">
+        <h3>자동 번호</h3>
+            <div class="js-betNumber numberball">0</div>
+            <div class="js-betNumber numberball">0</div>
+            <div class="js-betNumber numberball">0</div>
+            <div class="js-betNumber numberball">0</div>
+            <div class="js-betNumber numberball">0</div>
+            <div class="js-betNumber numberball">0</div>
+    </div>
+    <div class="js-resultbox resultbox">
+        <h3>당첨 번호</h3>
+        <div class="js-resultNumber numberball">0</div>
+        <div class="js-resultNumber numberball">0</div>
+        <div class="js-resultNumber numberball">0</div>
+        <div class="js-resultNumber numberball">0</div>
+        <div class="js-resultNumber numberball">0</div>
+        <div class="js-resultNumber numberball">0</div>
+        <div class="js-resultNumber serviceball">0</div>
+        </div>
+    <div class="moneyinfo">
+        <div class="js-winbox winbox">
+            <h3>당첨 횟수</h3>
+            <span class="js-rank">1등 : 0</span>
+            <span class="js-rank">2등 : 0</span>
+            <span class="js-rank">3등 : 0</span>
+            <span class="js-rank">4등 : 0</span>
+            <span class="js-rank">5등 : 0</span>
+            <span class="js-rank">꽝 : 0</span>
+        </div>
+        <div class="rewardbox">
+            <h3>당첨금</h3>
+                <span class="reward">1등 : 1,952,160,000 원</span>
+                <span class="reward">2등 : 54,226,666 원</span>
+                <span class="reward">3등 : 1,390,427 원</span>
+                <span class="reward">4등 : 50,000 원</span>
+                <span class="reward">5등 : 5,000 원</span>
+        </div>
+    </div>
+    <div class="js-getmoney">
+        <span class="js-money money">수익: 0￦</span>
+    </div>
+    <script src="dist/index.js"></script>
+</body>
+</html>
