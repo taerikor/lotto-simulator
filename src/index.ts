@@ -1,27 +1,28 @@
-const resultNumber = document.getElementsByClassName('js-resultNumber') as  any;
-const betNumber = document.getElementsByClassName('js-betNumber') as  any;
-const betButton = document.querySelector('.js-betBtn') as HTMLParagraphElement; 
-const speedButton = document.querySelector('.js-speed') as HTMLParagraphElement; 
-const resetButton = document.querySelector('.js-reset') as HTMLParagraphElement; 
-const rank = document.getElementsByClassName('js-rank') as any;
-const money = document.querySelector('.js-money') as HTMLParagraphElement; 
-const inputBet = document.querySelector('.js-bet') as HTMLInputElement; 
-const errorText = document.querySelector('.js-error') as HTMLParagraphElement; 
-const form = document.querySelector('.js-form') as HTMLParagraphElement; 
+const resultNumber = document.getElementsByClassName('js-resultNumber') as HTMLCollectionOf<HTMLElement>;
+const betNumber = document.getElementsByClassName('js-betNumber') as HTMLCollectionOf<HTMLElement>;
+const betButton = document.querySelector('.js-betBtn') as HTMLButtonElement;
+const speedButton = document.querySelector('.js-speed') as HTMLButtonElement;
+const resetButton = document.querySelector('.js-reset') as HTMLButtonElement;
+const rank = document.getElementsByClassName('js-rank') as HTMLCollectionOf<HTMLElement>;
+const money = document.querySelector('.js-money') as HTMLSpanElement;
+const inputBet = document.querySelector('.js-bet') as HTMLFormElement;
+const errorText = document.querySelector('.js-error') as HTMLSpanElement;
+const form = document.querySelector('.js-form') as HTMLFormElement;
 
-let getResult:Array<number> = [];
-let getBet:Array<number> = [];
-let getBonus:Array<number> = [];
-let fifth = 0;
-let fourth = 0;
-let third = 0;
-let second = 0;
-let first = 0;
 
-let lost = 0;
-let getMoney = 0;
-let betMoney = 0;
-let timeOutSpeed = 100;
+let getResult:number[] = [];
+let getBet:number[] = [];
+let getBonus:number[] = [];
+let fifth:number = 0;
+let fourth:number = 0;
+let third:number = 0;
+let second:number = 0;
+let first:number = 0;
+
+let lost:number = 0;
+let getMoney:number = 0;
+let betMoney:number = 0;
+let timeOutSpeed:number = 100;
 
 const reward = {
     first:1952160000,
@@ -40,18 +41,24 @@ function getRandom() {
 
   function paintBet(){
     getBet = [];
+    let bet:string[] = [];
+
     while(getBet.length < 6){
     const randomNumber = getRandom()
     if(!getBet.includes(randomNumber)){
     getBet.push(randomNumber);
     }
     }
-    const bet = getBet.sort((a:number, b:number) => {
+    let sortedBet:number[] = getBet.sort(function(a, b)  {
     return a - b;
     })
+
+    for(let i  = 0; i < sortedBet.length; i++){
+        bet[i] = sortedBet[i].toString()
+    }
     
     
-    betNumber[0].innerText = bet[0]
+    betNumber[0].innerHTML = bet[0]
     betNumber[1].innerText = bet[1]
     betNumber[2].innerText = bet[2]
     betNumber[3].innerText = bet[3]
@@ -62,15 +69,19 @@ function getRandom() {
 
 function paintResult(){
     getResult = [];
+    let result:string[] = []
     while(getResult.length < 6){
     const randomNumber = getRandom()
     if(!getResult.includes(randomNumber)){
     getResult.push(randomNumber);
     }
     }
-    const result = getResult.sort(function(a, b)  {
+    const sortedResult:number[] = getResult.sort(function(a, b)  {
     return a - b;
     })
+    for(let i = 0; i < sortedResult.length; i++){
+        result[i] = sortedResult[i].toString()
+    }
     
     resultNumber[0].innerText = result[0]
     resultNumber[1].innerText = result[1]
@@ -83,11 +94,14 @@ function paintResult(){
 
 function paintBonus(){
     getBonus = [];
-    const randomNumber = getRandom()
-    if(!getResult.includes(resultNumber)){
+    let randomNumber = getRandom()
+    if(!getResult.includes(randomNumber)){
         getBonus.push(randomNumber);
+    }else {
+        getBonus.push(randomNumber - 1);
     }
-    resultNumber[6].innerText = getBonus[0]
+
+    resultNumber[6].innerText = getBonus[0].toString()
 }
 
 function numberWithCommas(x:number) {
@@ -97,7 +111,6 @@ function numberWithCommas(x:number) {
 function piantRank() {
     const getRank = getResult.filter(f => getBet.includes(f))
     const getMoneyCommas = numberWithCommas(getMoney);
-    getMoney += reward.lost
     if (getRank.length == 3) {
         fifth += 1
         getMoney += reward.fifth
@@ -122,9 +135,9 @@ function piantRank() {
         rank[0].innerText = `1등 : ${first}`
     }else {
         lost += 1
-        // getMoney += reward.lost
         rank[5].innerText = `꽝 : ${lost}`
     }
+    getMoney += reward.lost
     money.innerText = `수익: ${getMoneyCommas}￦`
 } 
 
@@ -133,7 +146,7 @@ function getTimeout(){
     betMoney += 1
     paintBet();
     piantRank();
-    if(betMoney < parseInt(inputBet.value)){
+    if(betMoney < inputBet.value){
         setTimeout(getTimeout,timeOutSpeed);
     }else{
             betMoney = 0;
@@ -146,7 +159,7 @@ function handleBetButtonClick(){
     if(inputBet.value == ''){
         errorText.innerText = '금액을 입력하세요!'
         inputBet.value = '';
-    }else if(parseInt(inputBet.value) < 1){
+    }else if(inputBet.value < 1){
         errorText.innerText = '정확한 금액을 입력하세요!'
         inputBet.value = '';
     }else {
@@ -157,7 +170,7 @@ function handleBetButtonClick(){
 }
 }
 
-function handleSubmit(event: Event){
+function handleSubmit(event:Event){
     event.preventDefault();
     handleBetButtonClick();
 }
