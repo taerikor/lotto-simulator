@@ -203,9 +203,14 @@
 // speedButton.addEventListener('click',handleSpeedButtonClick);
 // resetButton.addEventListener('click',handleResetButtonClick);
 // form.addEventListener('submit',handleSubmit);
+import React from 'react'
 import react from 'react'
 import ReactDom from 'react-dom'
 
 import App from './App'
 
-ReactDom.render(<App />,document.getElementById('root'))
+ReactDom.render(
+<React.StrictMode>
+<App />
+</React.StrictMode>
+,document.getElementById('root'))
