@@ -1,3 +1,0 @@
-# LOTTO SIMULATOR
-
-Migrating from JS to TS...
