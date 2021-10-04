@@ -1,2 +1,0 @@
-(this["webpackJsonplotto-ts-migration"]=this["webpackJsonplotto-ts-migration"]||[]).push([[0],{9:function(t,n,e){"use strict";e.r(n);var o=e(3),i=e.n(o),r=(e(1),e(0)),s=function(){return Object(r.jsx)("div",{children:"App"})};i.a.render(Object(r.jsx)(s,{}),document.getElementById("root"))}},[[9,1,2]]]);
-//# sourceMappingURL=main.a1405b43.chunk.js.map

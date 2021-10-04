@@ -1,36 +1,42 @@
 {
-  "name": "lotto-ts-migration",
+  "name": "lotto-simulator",
   "version": "1.0.0",
-  "description": "",
+  "description": "lotto",
   "main": "index.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build"
+    "dev": "gulp dev",
+    "build": "gulp build",
+    "deploy": "gulp deploy"
   },
-  "keywords": [],
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/taerikor/gulp.git"
+  },
+  "author": "taerikor",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/taerikor/gulp/issues"
+  },
+  "homepage": "https://github.com/taerikor/gulp#readme",
   "devDependencies": {
-    "typescript": "^4.3.5"
+    "@babel/core": "^7.14.6",
+    "@babel/preset-env": "^7.14.7",
+    "@babel/register": "^7.14.5",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^8.0.0",
+    "gulp-bro": "^2.0.0",
+    "gulp-csso": "^4.0.1",
+    "gulp-image": "^6.2.1",
+    "gulp-pug": "^5.0.0",
+    "gulp-sass": "^5.0.0",
+    "gulp-webserver": "^0.9.1",
+    "node-sass": "^6.0.1",
+    "sass": "^1.35.2"
   },
   "dependencies": {
-    "@types/node": "^16.10.2",
-    "@types/react": "^17.0.26",
-    "@types/react-dom": "^17.0.9",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-scripts": "^4.0.3"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "babelify": "^10.0.0",
+    "del": "^6.0.0",
+    "gulp-gh-pages": "^0.5.4",
+    "uglifyify": "^5.0.2"
   }
 }
