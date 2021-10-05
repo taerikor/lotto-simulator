@@ -1,15 +1,50 @@
 import randomNumberArray from './random'
-// const selectIndex = (totalIndex:number, selectingNumber:number) => {
-//     let randomIndexArray = []
-//     for (let i=0; i<selectingNumber; i++) {   //check if there is any duplicate index
-//       let randomNum = Math.floor(Math.random() * totalIndex)
-//       if (randomIndexArray.indexOf(randomNum) === -1) {
-//         randomIndexArray.push(randomNum)
-//       } else { //if the randomNum is already in the array retry
-//         i--
-//       }
-//     }
-//     return randomIndexArray
-//   }
-//   console.log(selectIndex(45,6))
-console.log(randomNumberArray())
+
+// console.log(randomNumberArray().sort((a:number,b:number) => a-b ))
+
+interface INumbers {
+    numbers:number[]
+    bonus?: number 
+}
+
+
+const seperateBonus = (index:number) => {
+    let random = randomNumberArray(index)
+    if(index === 7) {
+        return {
+            numbers: random,
+            bonus: random.pop()
+        }
+    }else{
+        return {
+            numbers: random
+        }
+    }
+}
+
+const compareArray = (goalNumbers:INumbers,myNumbers:INumbers) => {
+    const compare = goalNumbers.numbers.filter((x) => myNumbers.numbers.includes(x))
+    if(goalNumbers.bonus === undefined){
+        return null;
+    }
+    switch(compare.length){
+        case 6:
+            return 1
+        case 5:
+            return myNumbers.numbers.includes(goalNumbers.bonus) ? 2 : 3
+        case 4:
+            return 4
+        case 3:
+            return 5
+        default:
+            return 6
+    }
+}
+
+const run = () => {
+    const goal = seperateBonus(7)
+    for(let i = 0; i < 5; i ++){
+        console.log(compareArray(goal,seperateBonus(6)))
+    }
+}
+run()
