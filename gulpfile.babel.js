@@ -5,9 +5,14 @@ import ws from "gulp-webserver";
 import image from "gulp-image";
 import autoPreFixer from "gulp-autoprefixer";
 import csso from "gulp-csso";
-import bro from "gulp-bro";
-import babelify from "babelify";
 import ghPages from "gulp-gh-pages";
+import browserify from "browserify";
+import tsify from "tsify";
+import vinylSourceStream from "vinyl-source-stream";
+import buffer from "vinyl-buffer";
+import sourceMaps from "gulp-sourcemaps";
+import babel from "gulp-babel";
+import GulpUglify from "gulp-uglify";
 
 const sass = require("gulp-sass")(require("sass"));
 
@@ -15,21 +20,21 @@ const routes = {
   pug: {
     watch: "src/**/*.pug",
     src: "src/*.pug",
-    dest: "build",
+    dest: "dist",
   },
   img: {
     src: "src/image/*",
-    dest: "build/img",
+    dest: "dist/img",
   },
   sass: {
     watch: "src/scss/**/*.scss",
     src: "src/scss/style.scss",
-    dest: "build/css",
+    dest: "dist/css",
   },
-  js: {
-    watch: "src/js/**/*.js",
-    src: "src/js/main.js",
-    dest: "build/js",
+  ts: {
+    watch: "src/ts/*.ts",
+    src: "src/ts/main.ts",
+    dest: "dist",
   },
 };
 
@@ -58,36 +63,54 @@ const styles = () => {
     .pipe(csso())
     .pipe(gulp.dest(routes.sass.dest));
 };
-const js = () => {
-  return gulp
-    .src(routes.js.src)
+
+//Reference: https://jedidev.tistory.com/21
+
+const bundler = () => {
+  return browserify({
+    basedir: ".",
+    debug: true,
+    entries: [routes.ts.src],
+    cache: {},
+    packageCache: {},
+  })
+    .plugin(tsify)
+    .bundle();
+};
+const tsToJs = () => {
+  return bundler()
+    .pipe(vinylSourceStream("bundle.js"))
+    .pipe(buffer())
+    .pipe(sourceMaps.init())
     .pipe(
-      bro({
-        transform: [
-          babelify.configure({ presets: ["@babel/preset-env"] }),
-          ["uglifyify", { global: true }],
-        ],
+      babel({
+        presets: ["@babel/preset-env"],
       })
-    )
-    .pipe(gulp.dest(routes.js.dest));
+    );
+};
+const ts = () => {
+  return tsToJs()
+    .pipe(GulpUglify())
+    .pipe(sourceMaps.write("./"))
+    .pipe(gulp.dest(routes.ts.dest));
 };
 
-const clean = () => del(["build", ".publish"]);
+const clean = () => del(["dist", ".publish"]);
 
 const webserver = () =>
-  gulp.src("build").pipe(ws({ livereload: true, open: true }));
+  gulp.src("dist").pipe(ws({ livereload: true, open: true }));
 
 const watch = () => {
   gulp.watch(routes.pug.watch, pug);
   gulp.watch(routes.sass.watch, styles);
-  gulp.watch(routes.js.watch, js);
+  gulp.watch(routes.ts.watch, ts);
 };
 
-const gh = () => gulp.src("build/**/*").pipe(ghPages());
+const gh = () => gulp.src("dist/**/*").pipe(ghPages());
 
 const prepare = gulp.series([clean, img]);
 
-const assets = gulp.series([pug, styles, js]);
+const assets = gulp.series([pug, styles, ts]);
 
 const live = gulp.parallel([webserver, watch]);
 

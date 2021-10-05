@@ -8,35 +8,34 @@
     "build": "gulp build",
     "deploy": "gulp deploy"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/taerikor/gulp.git"
-  },
   "author": "taerikor",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/taerikor/gulp/issues"
-  },
-  "homepage": "https://github.com/taerikor/gulp#readme",
   "devDependencies": {
-    "@babel/core": "^7.14.6",
+    "@babel/core": "^7.15.5",
     "@babel/preset-env": "^7.14.7",
     "@babel/register": "^7.14.5",
+    "babel-core": "^7.0.0-bridge.0",
+    "browserify": "^17.0.0",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^8.0.0",
-    "gulp-bro": "^2.0.0",
+    "gulp-babel": "^8.0.0",
     "gulp-csso": "^4.0.1",
     "gulp-image": "^6.2.1",
     "gulp-pug": "^5.0.0",
     "gulp-sass": "^5.0.0",
+    "gulp-sourcemaps": "^3.0.0",
+    "gulp-typescript": "^6.0.0-alpha.1",
+    "gulp-uglify": "^3.0.2",
     "gulp-webserver": "^0.9.1",
     "node-sass": "^6.0.1",
-    "sass": "^1.35.2"
+    "sass": "^1.35.2",
+    "tsify": "^5.0.4",
+    "typescript": "^4.4.3",
+    "vinyl-buffer": "^1.0.1",
+    "vinyl-source-stream": "^2.0.0"
   },
   "dependencies": {
-    "babelify": "^10.0.0",
     "del": "^6.0.0",
-    "gulp-gh-pages": "^0.5.4",
-    "uglifyify": "^5.0.2"
+    "gulp-gh-pages": "^0.5.4"
   }
 }

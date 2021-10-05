@@ -3,4 +3,42 @@ extends templates/layout
 
 
 block content
-    h1 Awesome Minimalism
+    h1 LOTTO
+    .inputbox
+    span.bettext &#xBC30;&#xD305;&#xAE08;&#xC561;&#xC740;
+    form.js-form.form
+        input.js-bet(type='number')
+    span ,000원;
+    .buttonbox
+        button.js-betBtn BET
+        button.js-speed x2
+        button.js-reset &orarr;
+    span.js-error.error
+    .js-betnumberbox.betnumberbox
+    h3 자동 번호
+    h3 당첨 번호
+    .js-resultNumber.numberball 0
+    .js-resultNumber.numberball 0
+    .js-resultNumber.numberball 0
+    .js-resultNumber.numberball 0
+    .js-resultNumber.numberball 0
+    .js-resultNumber.numberball 0
+    .js-resultNumber.serviceball 0
+    .moneyinfo
+    .js-winbox.winbox
+        h3 당첨 횟수
+        span.js-rank 1등 : 0
+        span.js-rank 2등 : 0
+        span.js-rank 3등 : 0
+        span.js-rank 4등 : 0
+        span.js-rank 5등 : 0
+        span.js-rank 꽝 : 0
+    .rewardbox
+        h3 &#xB2F9;&#xCCA8;&#xAE08;
+        span.reward 1&#xB4F1; : 1,952,160,000 &#xC6D0;
+        span.reward 2&#xB4F1; : 54,226,666 &#xC6D0;
+        span.reward 3&#xB4F1; : 1,390,427 &#xC6D0;
+        span.reward 4&#xB4F1; : 50,000 &#xC6D0;
+        span.reward 5&#xB4F1; : 5,000 &#xC6D0;
+    .js-getmoney
+    span.js-money.money &#xC218;&#xC775;: 0&#xFFE6;
