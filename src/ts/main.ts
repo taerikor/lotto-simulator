@@ -114,6 +114,19 @@ const createBoard = (array:number[]) => {
     return board
 }
 
+const paintRevenue = () => {
+    const calculateReward = ():string => {
+        let first = rewardObj.score.first * rewardObj.reward.first
+        let second = rewardObj.score.second * rewardObj.reward.second
+        let third = rewardObj.score.third * rewardObj.reward.third
+        let fourth = rewardObj.score.fourth * rewardObj.reward.fourth
+        let fifth = rewardObj.score.fifth * rewardObj.reward.fifth
+        let lost = rewardObj.score.lost * rewardObj.reward.lost
+
+        return `${first + second + third + fourth + fifth + lost}`
+    }
+    revenue.innerText = calculateReward()
+}
 const sortArray = (array:INumbers) => {
     let newArray = [...array.numbers]
     newArray.sort((a:number,b:number) => a-b )
@@ -168,7 +181,6 @@ const paintResult = (i: number,elem:HTMLDivElement) => {
             numbersResult.innerText = '꽝'
             break;
     }
-    paintRank()
 }
 
 const paintBoard = () => {
@@ -183,11 +195,12 @@ const paintBoard = () => {
     for(let i = 0 ; i < 5 ; i ++){
         setTimeout(() => paintResult(i,newNumbersDiv), (i+1) * 1000)
     }
-    paintRank()
 }
 
 button.addEventListener('click',() => {
 
     addScore()
     paintBoard()
+    paintRank()
+    paintRevenue()
 })
