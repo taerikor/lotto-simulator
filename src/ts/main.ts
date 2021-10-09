@@ -124,18 +124,15 @@ const sortArray = (array:INumbers) => {
 }
 
 const paintRank = () => {
-    const first = document.querySelector(".content__number--first") as HTMLSpanElement
-    first.innerHTML =rewardObj.score.first.toString()
-    const second = document.querySelector(".content__number--second") as HTMLSpanElement
-    second.innerHTML =rewardObj.score.second.toString()
-    const third = document.querySelector(".content__number--third") as HTMLSpanElement
-    third.innerHTML =rewardObj.score.third.toString()
-    const fourth = document.querySelector(".content__number--fourth") as HTMLSpanElement
-    fourth.innerHTML =rewardObj.score.fourth.toString()
-    const fifth = document.querySelector(".content__number--fifth") as HTMLSpanElement
-    fifth.innerHTML =rewardObj.score.fifth.toString()
-    const lost = document.querySelector(".content__number--lost") as HTMLSpanElement
-    lost.innerHTML =rewardObj.score.lost.toString()
+    const rankText = document.querySelector(".rank__content") as HTMLSpanElement
+    rankText.innerText = `
+    1등 : ${rewardObj.score.first}
+    2등 : ${rewardObj.score.second}
+    3등 : ${rewardObj.score.third}
+    4등 : ${rewardObj.score.fourth}
+    5등 : ${rewardObj.score.fifth}
+    꽝 : ${rewardObj.score.lost}
+    `
 }
 
 const paintResult = (i: number,elem:HTMLDivElement) => {
@@ -182,7 +179,6 @@ const paintBoard = () => {
     const newNumbersDiv = document.createElement('div')
     newNumbersDiv.classList.add("numbers--current")
     numbersLayout.replaceChildren(newNumbersDiv)
-    console.log(numberLog.goal.numbers)
     newNumbersDiv.appendChild(createBoard(sortArray(numberLog.goal)))
     for(let i = 0 ; i < 5 ; i ++){
         setTimeout(() => paintResult(i,newNumbersDiv), (i+1) * 1000)
