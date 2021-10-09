@@ -27,7 +27,7 @@ const routes = {
     dest: "dist/img",
   },
   sass: {
-    watch: "src/scss/**/*.scss",
+    watch: "src/scss/*.scss",
     src: "src/scss/style.scss",
     dest: "dist/css",
   },

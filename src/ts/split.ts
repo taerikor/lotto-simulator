@@ -9,6 +9,7 @@ const splitRanks = (goalNumbers:INumbers,myNumbers:INumbers) => {
         return null;
     }
     const compare = compareArray(goalNumbers,myNumbers)
+    console.log(goalNumbers.numbers)
     switch(compare.length){
         case 6:
             return 1

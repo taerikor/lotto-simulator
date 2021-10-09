@@ -1,6 +1,5 @@
 import randomNumberArray from './random'
 import splitRanks from './split'
-// import { createStore,StoreCreator } from '../../node_modules/redux/index'
 
 
 const button = document.querySelector(".ticket") as HTMLButtonElement
@@ -15,14 +14,7 @@ export interface INumbers {
 export interface INumberLog {
     goal?: INumbers;
     user: INumbers[];
-    
 }
-
-// const FIRST_RANK = "FIRST_RANK"
-// const SECOND_RANK = "SECOND_RANK"
-// const THIRD_RANK = "THIRD_RANK"
-// const FOURTH_RANK = "FOURTH_RANK"
-// const FIFTH_RANK = "FIFTH_RANK"
 
 const rewardObj = {
     reward:{
@@ -46,32 +38,6 @@ const rewardObj = {
 const numberLog:INumberLog = {
     user:[]
 } 
-
-// const initialState = {
-//     score:{
-//         first:0,
-//         second:0,
-//         third:0,
-//         fourth:0,
-//         fifth:0,
-//         lost:0
-//     },
-//     log:{
-//         user:[],
-//         goal:[]
-//     }
-
-// }
-
-// const reducer = (state = initialState, action:any) => {
-//     switch (action.type) {
-
-//       default:
-//         return state;
-//     }
-//   };
-  
-//   const store:StoreCreator = createStore(reducer);
 
 const seperateBonus = (index:number) => {
     let random = randomNumberArray(index)
@@ -125,11 +91,18 @@ const createNumberDiv = (index:number, array:number[],elem:HTMLDivElement) => {
     if(index === 6){
         numberDiv.classList.add('number-board__number--bonus')
     }
+    if(array.length === 6) {
+        const compareNumber = numberLog.goal?.numbers.includes(array[index])
+        if(compareNumber){
+            numberDiv.classList.add('number-board__number--hit')
+        }
+    }
     elem.appendChild(numberDiv)
 }
 
 const createBoard = (array:number[]) => {
     const board = document.createElement('div')
+    board.classList.add('number-board')
     if(array.length === 7){
         board.classList.add('number-board--goal')
     }else {
@@ -142,11 +115,27 @@ const createBoard = (array:number[]) => {
 }
 
 const sortArray = (array:INumbers) => {
-    let sort = array.numbers.sort((a:number,b:number) => a-b )
+    let newArray = [...array.numbers]
+    newArray.sort((a:number,b:number) => a-b )
     if(array.bonus){
-        sort.push(array.bonus)
+        newArray.push(array.bonus)
     }
-    return sort
+    return newArray
+}
+
+const paintRank = () => {
+    const first = document.querySelector(".content__number--first") as HTMLSpanElement
+    first.innerHTML =rewardObj.score.first.toString()
+    const second = document.querySelector(".content__number--second") as HTMLSpanElement
+    second.innerHTML =rewardObj.score.second.toString()
+    const third = document.querySelector(".content__number--third") as HTMLSpanElement
+    third.innerHTML =rewardObj.score.third.toString()
+    const fourth = document.querySelector(".content__number--fourth") as HTMLSpanElement
+    fourth.innerHTML =rewardObj.score.fourth.toString()
+    const fifth = document.querySelector(".content__number--fifth") as HTMLSpanElement
+    fifth.innerHTML =rewardObj.score.fifth.toString()
+    const lost = document.querySelector(".content__number--lost") as HTMLSpanElement
+    lost.innerHTML =rewardObj.score.lost.toString()
 }
 
 const paintResult = (i: number,elem:HTMLDivElement) => {
@@ -154,28 +143,35 @@ const paintResult = (i: number,elem:HTMLDivElement) => {
         return null;
     }
     let userNumbers = numberLog.user[i]
-    elem.appendChild(createBoard(sortArray(userNumbers)))
-    const rank = splitRanks(numberLog.goal,userNumbers)
+    const board = createBoard(sortArray(userNumbers))
+    elem.appendChild(board)
+    const rank = splitRanks(numberLog.goal,numberLog.user[i])
     switch(rank){
         case 1:
             numbersResult.innerText = '1등'
+            board.classList.add('number-board--first')
             break;
         case 2:
             numbersResult.innerText = '2등'
+            board.classList.add('number-board--second')
             break;
         case 3:
             numbersResult.innerText = '3등'
+            board.classList.add('number-board--third')
             break;
         case 4:
             numbersResult.innerText = '4등'
+            board.classList.add('number-board--fourth')
             break;
         case 5:
             numbersResult.innerText = '5등'
+            board.classList.add('number-board--fifth')
             break;
         default:
             numbersResult.innerText = '꽝'
             break;
     }
+    paintRank()
 }
 
 const paintBoard = () => {
@@ -186,14 +182,16 @@ const paintBoard = () => {
     const newNumbersDiv = document.createElement('div')
     newNumbersDiv.classList.add("numbers--current")
     numbersLayout.replaceChildren(newNumbersDiv)
+    console.log(numberLog.goal.numbers)
     newNumbersDiv.appendChild(createBoard(sortArray(numberLog.goal)))
     for(let i = 0 ; i < 5 ; i ++){
         setTimeout(() => paintResult(i,newNumbersDiv), (i+1) * 1000)
     }
+    paintRank()
 }
 
-
 button.addEventListener('click',() => {
+
     addScore()
     paintBoard()
 })
