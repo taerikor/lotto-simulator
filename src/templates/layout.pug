@@ -5,15 +5,18 @@ html(lang="en")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         link(rel="stylesheet", href="css/style.css")
-        title documents
-    body 
-        include ../partials/TicketButton.pug
-        .numbers
-        .numbers__result    
-        include ../partials/Rank.pug
-        include ../partials/Winnings.pug
-        .revenue.hidden 수익:
-            span.revenue__number 0
-        block content
+        title lotto simulator
+    body
+        div.layout 
+            h1.title LOTTO SIMULATOR
+            include ../partials/TicketButton.pug
+            .numbers
+            .numbers__result
+            div.result-layout    
+                include ../partials/Rank.pug
+                include ../partials/Winnings.pug
+            .revenue.board 수익:
+                span.revenue__number 0 원
+            block content
 
-        script(src="./bundle.js")  
+            script(src="./bundle.js")  
