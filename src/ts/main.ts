@@ -6,6 +6,10 @@ const button = document.querySelector(".ticket") as HTMLButtonElement
 const revenue = document.querySelector(".revenue__number") as HTMLSpanElement
 const numbersLayout = document.querySelector(".numbers") as HTMLDivElement
 const numbersResult = document.querySelector(".numbers__result") as HTMLDivElement
+const rankBoard = document.querySelector(".rank-board") as HTMLDivElement
+const revenueLayout = document.querySelector(".revenue") as HTMLDivElement
+
+const HIDDEN_CN = 'hidden'
 
 export interface INumbers {
     numbers:number[]
@@ -125,7 +129,7 @@ const paintRevenue = () => {
 
         return `${first + second + third + fourth + fifth + lost}`
     }
-    revenue.innerText = calculateReward()
+    revenue.innerText = `${calculateReward()} 원`
 }
 const sortArray = (array:INumbers) => {
     let newArray = [...array.numbers]
@@ -181,6 +185,10 @@ const paintResult = (i: number,elem:HTMLDivElement) => {
             numbersResult.innerText = '꽝'
             break;
     }
+    if(i === 4){
+        toggleBoard()
+        button.classList.toggle(HIDDEN_CN)
+    }
 }
 
 const paintBoard = () => {
@@ -195,10 +203,19 @@ const paintBoard = () => {
     for(let i = 0 ; i < 5 ; i ++){
         setTimeout(() => paintResult(i,newNumbersDiv), (i+1) * 1000)
     }
+
+}
+
+const toggleBoard = () => {
+    revenueLayout.classList.toggle(HIDDEN_CN)
+    rankBoard.classList.toggle(HIDDEN_CN)
 }
 
 button.addEventListener('click',() => {
-
+    if(revenueLayout.className !== 'revenue hidden'){
+        toggleBoard()
+    }
+    button.classList.toggle(HIDDEN_CN)
     addScore()
     paintBoard()
     paintRank()

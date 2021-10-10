@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "del": "^6.0.0",
-    "gulp-gh-pages": "^0.5.4"
+    "gulp-gh-pages": "^0.5.4",
+    "redux": "^4.1.1"
   }
 }
